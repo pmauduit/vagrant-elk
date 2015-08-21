@@ -1,8 +1,23 @@
+
 node default {
 
   # Installs Elasticsearch
-  class { '::elasticsearch': }
-
+  package { 'openjdk-7-jre':
+    ensure => present,
+  } ->
+  apt::key { 'key-repo-el-1.7':
+    key        => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
+    key_source => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
+  } ->
+  apt::source { 'elasticsearch-1.7':
+    location          => 'http://packages.elastic.co/elasticsearch/1.7/debian',
+    release           => 'stable',
+    repos             => 'main',
+    include_src       => false,
+    required_packages => 'debian-keyring debian-archive-keyring',
+  } ->
+  class { 'elasticsearch':
+  }
   elasticsearch::instance { 'es-01': }
 
   package { [ 'chromium', 'lightdm', 'openbox', 'gnome-terminal' ]:

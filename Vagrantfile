@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "elk.mydomain.org"
 
   # Setting up puppet
-  config.vm.provision "shell", inline: "apt-get update"
+  config.vm.provision "shell", inline: "apt-get update || true"
   config.vm.provision "shell", inline: "apt-get install -y puppet hiera libaugeas0"
   config.vm.provision "shell", inline: "puppet cert generate $(facter fqdn) || true"
 
@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Puppet recipe
   config.vm.provision :puppet do |puppet|
     puppet.working_directory = "/tmp/vagrant-puppet"
-    puppet.module_path    = "modules"
+    puppet.module_path       = "modules"
   end
 
 end

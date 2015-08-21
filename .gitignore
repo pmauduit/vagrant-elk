@@ -1,0 +1,3 @@
+.vagrant/
+Puppetfile.lock
+modules/
