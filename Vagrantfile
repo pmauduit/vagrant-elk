@@ -13,7 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.box = "debian/jessie64"
-  config.vm.network "private_network", type: "dhcp"
   config.vm.hostname = "elk.mydomain.org"
 
   # Setting up puppet
